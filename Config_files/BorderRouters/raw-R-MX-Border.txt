@@ -1,0 +1,368 @@
+RouterCDMX#sh run
+Building configuration...
+
+Current configuration : 2922 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname RouterCDMX
+!
+!
+!
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+!
+!
+!
+!
+aaa new-model
+!
+aaa authentication login Acceso_Telnet group radius local 
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username cisco secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+!
+license udi pid CISCO2911/K9 sn FTX15249THK-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 10.1.1.5 255.255.255.252
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 10.1.1.2 255.255.255.252
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ ip address 3.3.3.2 255.255.255.252
+ ip nat inside
+ clock rate 2000000
+!
+interface Serial0/0/1
+ ip address 1.1.1.1 255.255.255.252
+ ip nat inside
+!
+interface Serial0/1/0
+ ip address 10.1.1.13 255.255.255.252
+ ip nat inside
+!
+interface Serial0/1/1
+ ip address 10.1.1.17 255.255.255.252
+ ip nat inside
+!
+interface Serial0/2/0
+ ip address 10.1.1.21 255.255.255.252
+ ip nat inside
+!
+interface Serial0/2/1
+ ip address 10.1.1.25 255.255.255.252
+ ip nat inside
+!
+interface Serial0/3/0
+ ip address 10.1.1.29 255.255.255.252
+ ip nat inside
+!
+interface Serial0/3/1
+ ip address 4.4.4.1 255.255.255.252
+ ip nat outside
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 10
+ log-adjacency-changes
+ redistribute bgp 10 
+ network 10.1.1.0 0.0.0.255 area 0
+ network 172.16.0.0 0.0.7.255 area 0
+ network 192.168.10.0 0.0.0.255 area 0
+ network 192.168.11.0 0.0.0.255 area 0
+ network 192.168.12.0 0.0.0.255 area 0
+ network 192.168.13.0 0.0.0.255 area 0
+ default-information originate
+!
+router bgp 10
+ bgp router-id 1.1.1.1
+ bgp log-neighbor-changes
+ no synchronization
+ neighbor 1.1.1.2 remote-as 20
+ neighbor 3.3.3.1 remote-as 30
+ neighbor 4.4.4.2 remote-as 40
+ network 10.1.1.0 mask 255.255.255.0
+ redistribute ospf 10 
+ redistribute connected 
+!
+ip nat inside source list NAT_INSIDE interface Serial0/3/1 overload
+ip classless
+ip route 0.0.0.0 0.0.0.0 10.1.1.1 
+ip route 0.0.0.0 0.0.0.0 10.1.1.6 
+ip route 0.0.0.0 0.0.0.0 10.1.1.14 
+ip route 0.0.0.0 0.0.0.0 10.1.1.18 
+ip route 0.0.0.0 0.0.0.0 10.1.1.22 
+ip route 0.0.0.0 0.0.0.0 10.1.1.26 
+ip route 0.0.0.0 0.0.0.0 10.1.1.30 
+!
+ip flow-export version 9
+!
+!
+ip access-list standard NAT_INSIDE
+ permit 172.16.0.0 0.0.7.255
+ permit 192.168.10.0 0.0.0.255
+ permit 192.168.11.0 0.0.0.255
+ permit 192.168.12.0 0.0.0.255
+ permit 192.168.13.0 0.0.0.255
+ permit 10.1.1.0 0.0.0.255
+!
+!
+radius server RServer
+ address ipv4 172.16.6.195 auth-port 1645
+ key cisco
+radius server 172.16.6.195
+ address ipv4 172.16.6.195 auth-port 1645
+ key cisco
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login authentication Acceso_Telnet
+line vty 5 15
+ login authentication Acceso_Telnet
+!
+!
+!
+end
+
+
+RouterCDMX#
+RouterCDMX#
+RouterCDMX#
+RouterCDMX#
+RouterCDMX#
+RouterCDMX#
+RouterCDMX#
+RouterCDMX#sh e
+              ^
+% Invalid input detected at '^' marker.
+	
+RouterCDMX#
+RouterCDMX#sh run
+Building configuration...
+
+Current configuration : 2922 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname RouterCDMX
+!
+!
+!
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+!
+!
+!
+!
+aaa new-model
+!
+aaa authentication login Acceso_Telnet group radius local 
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username cisco secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+!
+!
+license udi pid CISCO2911/K9 sn FTX15249THK-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 10.1.1.5 255.255.255.252
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 10.1.1.2 255.255.255.252
+ ip nat inside
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ ip address 3.3.3.2 255.255.255.252
+ ip nat inside
+ clock rate 2000000
+!
+interface Serial0/0/1
+ ip address 1.1.1.1 255.255.255.252
+ ip nat inside
+!
+interface Serial0/1/0
+ ip address 10.1.1.13 255.255.255.252
+ ip nat inside
+!
+interface Serial0/1/1
+ ip address 10.1.1.17 255.255.255.252
+ ip nat inside
+!
+interface Serial0/2/0
+ ip address 10.1.1.21 255.255.255.252
+ ip nat inside
+!
+interface Serial0/2/1
+ ip address 10.1.1.25 255.255.255.252
+ ip nat inside
+!
+interface Serial0/3/0
+ ip address 10.1.1.29 255.255.255.252
+ ip nat inside
+!
+interface Serial0/3/1
+ ip address 4.4.4.1 255.255.255.252
+ ip nat outside
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router ospf 10
+ log-adjacency-changes
+ redistribute bgp 10 
+ network 10.1.1.0 0.0.0.255 area 0
+ network 172.16.0.0 0.0.7.255 area 0
+ network 192.168.10.0 0.0.0.255 area 0
+ network 192.168.11.0 0.0.0.255 area 0
+ network 192.168.12.0 0.0.0.255 area 0
+ network 192.168.13.0 0.0.0.255 area 0
+ default-information originate
+!
+router bgp 10
+ bgp router-id 1.1.1.1
+ bgp log-neighbor-changes
+ no synchronization
+ neighbor 1.1.1.2 remote-as 20
+ neighbor 3.3.3.1 remote-as 30
+ neighbor 4.4.4.2 remote-as 40
+ network 10.1.1.0 mask 255.255.255.0
+ redistribute ospf 10 
+ redistribute connected 
+!
+ip nat inside source list NAT_INSIDE interface Serial0/3/1 overload
+ip classless
+ip route 0.0.0.0 0.0.0.0 10.1.1.1 
+ip route 0.0.0.0 0.0.0.0 10.1.1.6 
+ip route 0.0.0.0 0.0.0.0 10.1.1.14 
+ip route 0.0.0.0 0.0.0.0 10.1.1.18 
+ip route 0.0.0.0 0.0.0.0 10.1.1.22 
+ip route 0.0.0.0 0.0.0.0 10.1.1.26 
+ip route 0.0.0.0 0.0.0.0 10.1.1.30 
+!
+ip flow-export version 9
+!
+!
+ip access-list standard NAT_INSIDE
+ permit 172.16.0.0 0.0.7.255
+ permit 192.168.10.0 0.0.0.255
+ permit 192.168.11.0 0.0.0.255
+ permit 192.168.12.0 0.0.0.255
+ permit 192.168.13.0 0.0.0.255
+ permit 10.1.1.0 0.0.0.255
+!
+!
+radius server RServer
+ address ipv4 172.16.6.195 auth-port 1645
+ key cisco
+radius server 172.16.6.195
+ address ipv4 172.16.6.195 auth-port 1645
+ key cisco
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login authentication Acceso_Telnet
+line vty 5 15
+ login authentication Acceso_Telnet
+!
+!
+!
+end
